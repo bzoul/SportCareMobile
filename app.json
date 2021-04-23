@@ -1,12 +1,4 @@
 {
-  "name": "sport-care-mobile",
-  "displayName": "sport-care-mobile",
-  "expo": {
-    "name": "sport-care-mobile",
-    "slug": "sport-care-mobile",
-    "version": "1.0.0",
-    "assetBundlePatterns": [
-      "**/*"
-    ]
-  }
+  "name": "SPORTCAREMOBILE",
+  "displayName": "SPORTCAREMOBILE"
 }
