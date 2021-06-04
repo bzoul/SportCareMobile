@@ -1,8 +1,8 @@
 import React from 'react'
 import {View , StyleSheet, ImageBackground, Text } from 'react-native'
-import LogButton from '../components/LogButton'
-import Logo from "../components/Logo"
-import MyInformation from "../components/MyInformation"
+import LogButton from '../components/buttons/LogButton'
+import Logo from "../components/logos/Logo"
+import MyInformation from "../components/blocs/MyInformation"
 
 const LogIn = () => {
     const image = {uri :"https://cdn.discordapp.com/attachments/786976841851732038/830091403409358888/dzqdzqdzqd.png"};
@@ -13,7 +13,7 @@ const LogIn = () => {
             <Text style={styles.title}>Création de compte</Text>
             <MyInformation/>
             <View style={styles.button_container}>  
-                <LogButton title="REGISTER" backgroundColor="blue"/>
+                <LogButton onPress={this.props.navigation.navigate('Login')} title="REGISTER" backgroundColor="blue"/>
             </View>
             </ImageBackground>
         </View>
