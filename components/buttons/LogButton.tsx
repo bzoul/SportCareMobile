@@ -2,15 +2,26 @@ import React from 'react'
 
 import { View, Button, StyleSheet, TouchableOpacity, Text } from "react-native";
 
-
-const LogButton = ({ onPress, title, backgroundColor }) => (
-    <TouchableOpacity onPress={onPress} style={[
-        styles.appButtonContainer,
-        backgroundColor && { backgroundColor }
-      ]}>
+export default function LogButton( props ) {
+  const {
+    view, title, backgroundColor
+  } = props;
+  
+  return(
+      <TouchableOpacity 
+      onPress={() =>
+          props.navigation.navigate(`${view}`)
+        }
+      style={[
+          styles.appButtonContainer,
+          backgroundColor && { backgroundColor }
+        ]}>
       <Text style={styles.appButtonText}>{title}</Text>
     </TouchableOpacity>
-  );
+  )
+  
+}
+
 
   const styles = StyleSheet.create({
     // ...
@@ -30,4 +41,3 @@ const LogButton = ({ onPress, title, backgroundColor }) => (
     }
   });
 
-export default LogButton

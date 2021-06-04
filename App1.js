@@ -1,20 +1,41 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import 'react-native-gesture-handler';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Welcome to SPORT CARE</Text>
+const Stack = createStackNavigator();
 
-    </View>
-  );
+class App extends React.Component {
+  render() {
+    return (
+      <NavigationContainer >
+        <Stack.Navigator 
+          screenOptions={{
+            headerShown: false
+        }}>
+          <Stack.Screen
+            name="Login"
+            component={Logins}
+          />
+          <Stack.Screen
+            name="Wkiosque"
+            component={Wkiosque}
+          />
+          <Stack.Screen
+            name="Dlviews"
+            component={Dlviews}
+          />
+          <Stack.Screen
+            name="Webviews"
+            component={Webv}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
+  }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'grey',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
+export default App;
+

@@ -13,7 +13,6 @@ const LogIn = () => {
             <Text style={styles.title}>Création de compte</Text>
             <MyInformation/>
             <View style={styles.button_container}>  
-                <LogButton onPress={this.props.navigation.navigate('Login')} title="REGISTER" backgroundColor="blue"/>
             </View>
             </ImageBackground>
         </View>

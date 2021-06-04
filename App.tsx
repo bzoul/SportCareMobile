@@ -1,19 +1,35 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import Login from './views/Login'
-import Register from "./views/Register"
+import Login from './views/Login';
+import Register from './views/Register';
+import 'react-native-gesture-handler';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      {/* <Login/> */}
-      <Register/>
-    </View>
-  );
+const Stack = createStackNavigator();
+
+class App extends React.Component {
+  render() {
+    return (
+      <NavigationContainer >
+        <Stack.Navigator 
+          screenOptions={{
+            headerShown: false
+        }}>
+          <Stack.Screen
+            name="Login"
+            component={Login}
+          />
+          <Stack.Screen
+            name="Register"
+            component={Register}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
+  }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: 'red',
-  },
-});
+
+export default App;
+

@@ -3,6 +3,8 @@
 ## Open terminal
 
 ```sh
+npm install
+
 npx react-native start
 ```
 
