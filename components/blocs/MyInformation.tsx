@@ -3,46 +3,31 @@ import {Text, TextInput, View , StyleSheet } from 'react-native'
 import {Picker} from '@react-native-picker/picker';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import RNPickerSelect from 'react-native-picker-select';
+import HoriInput from '../inputs/HorizontalInput';
 
-const LogInput = () => {
-    return (
-        <View>
-            <Text style={styles.titre}> My Informations</Text>
-            <View style={styles.crea_container}>
-                
-                <View style={styles.text_placement}>
+export default class LogInput extends React.Component {
+    render() {
+        return (
+            <View>
+                <Text style={styles.titre}> My Informations</Text>
+                <View style={styles.crea_container}>
+                    
+                    <View style={styles.text_placement}>
+                        <HoriInput place1= 'Name' place2='Firstname'/>
+                    </View>
+                    <View style={styles.text_placement}>
+                        <HoriInput place1= 'birthday' place2='civility'/>
+                    </View>
                     <TextInput
-                    style={styles.input_text}
-                    placeholder="Name"
-                    placeholderTextColor='grey'
-                    />
-                    <TextInput
-                    style={styles.input_text}
-                    placeholder= "Firstname"
-                    placeholderTextColor='grey'
-                    />
+                        style={[styles.input_text, styles.width]}
+                        placeholder="@ email"
+                        placeholderTextColor='grey'
+                        />
                 </View>
-                <View style={styles.text_placement}>
-                    <TextInput
-                    style={styles.input_text}
-                    placeholder="MM/DD/AAAA"
-                    placeholderTextColor='grey'
-                    />
-                    <Picker style={styles.picker_text}>
-                        <Picker.Item label="M" value="M"/>
-                        <Picker.Item label="Mme" value="Mme" />
-                        <Picker.Item label="Other" value="none" />
-                    </Picker>
-                </View>
-                <TextInput
-                    style={[styles.input_text, styles.width]}
-                    placeholder="@ email"
-                    placeholderTextColor='grey'
-                    />
             </View>
-        </View>
-    );
+        );
     }
+}
 
 const styles = StyleSheet.create ({
     crea_container: {
@@ -73,7 +58,7 @@ const styles = StyleSheet.create ({
         color:'white'
     },
     width: {
-        width:"80%"
+        width:"75%"
     },
     titre: {
         color:"white",
@@ -84,4 +69,3 @@ const styles = StyleSheet.create ({
 
 })
 
-export default LogInput;
