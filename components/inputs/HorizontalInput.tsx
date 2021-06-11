@@ -1,7 +1,7 @@
 import React from 'react'
 import {Text, TextInput, View , StyleSheet } from 'react-native'
 
-const LogInput = (place1,place2) => {
+const LogInput = ({place1,place2}) => {
     return (
             <View style={styles.text_placement}>
                 <TextInput
@@ -22,11 +22,11 @@ const styles = StyleSheet.create ({
     text_input_container: {
     },
     input_text: {
-        width:'45%',
+        width:'47%',
         height:40,
         borderWidth:2,
-        marginBottom:25,
-        marginTop:25,
+        marginBottom:10,
+        marginTop:10,
         borderColor: 'grey',
         backgroundColor:'white',
         borderRadius: 10
