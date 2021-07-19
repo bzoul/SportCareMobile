@@ -1,20 +1,33 @@
 import React from 'react'
 
-import { View, Button, StyleSheet, TouchableOpacity, Text } from "react-native";
+import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
 
-export default function LogButton( props ) {
-  const {
-    view, title, backgroundColor
-  } = props;
-  
+interface Props {
+  color: string;
+  height: string;
+  onClick: () => void;
+  radius: string;
+  width: string;
+  title: string;
+  navigation: any
+}
+
+const Button: React.FC<Props> = ({ 
+    color,
+    height,
+    onClick, 
+    width,
+    title
+  }) => {
   return(
       <TouchableOpacity 
-      onPress={() =>
-          props.navigation.navigate(`${view}`)
-        }
+      onPress={onClick}
       style={[
           styles.appButtonContainer,
-          backgroundColor && { backgroundColor }
+          {backgroundColor: color,
+            width:width,
+            height:height,
+           }
         ]}>
       <Text style={styles.appButtonText}>{title}</Text>
     </TouchableOpacity>
@@ -41,3 +54,4 @@ export default function LogButton( props ) {
     }
   });
 
+  export default Button;
