@@ -16,9 +16,9 @@ class App extends React.Component {
           screenOptions={{
             headerShown: false,
           }}>
-          <Stack.Screen name="Sensor" component={Sensor} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Register" component={Register} />
+          <Stack.Screen name="Sensor" component={Sensor} />
         </Stack.Navigator>
       </NavigationContainer>
     );

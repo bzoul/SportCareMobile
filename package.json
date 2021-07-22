@@ -51,5 +51,6 @@
       "json",
       "node"
     ]
-  }
+  },
+  "proxy": "http://localhost:8000/"
 }

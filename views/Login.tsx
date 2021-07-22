@@ -6,13 +6,15 @@
  * @flow strict-local
  */
 import React from 'react'
-import {View , StyleSheet, ImageBackground} from 'react-native'
+import {View , StyleSheet, ImageBackground, KeyboardAvoidingView} from 'react-native'
 import Button from '../components/buttons/LogButton'
 import Logo from "../components/logos/Logo"
 import LogInput from "../components/inputs/LogInput"
 import axios from 'axios';
 interface State{
-    navigation: any
+    navigation: any;
+    email: string;
+    password: string;
 }
 
 
@@ -40,29 +42,37 @@ export default class Login extends React.Component<State> {
     login (){
         var log = this.state.email;
         var pass = this.state.password;
-        const json = JSON.stringify(
-                    {Login: log,
-                    Password: pass
-                    });
+        const json = 
+                    {email: log,
+                    password: pass
+                    }
         axios.post(
             `http://192.168.1.49:8000/login`, json)
           .then((response) => {
             // handle success
-            console.log(response.status);
-            
+            if (response.status == 201){
+                this.props.navigation.navigate("Sensor");
+            } else {
+                console.log(response.status);
+            }
           },(error) => {
-        //     // handle error
-        //     console.log (log+ "  s  "+ pass)
-        //     console.log(error.request);
-        // console.log(error.message);
-        // console.log(error.config);
-        console.log('mort')
+            //     // handle error
+            //     console.log (log+ "  s  "+ pass)
+                console.log(error.request);
+                console.log(error.message);
+            // console.log(error.config);
+            console.log(error)
           });
     }
     
     render(){
         const image = {uri :"https://cdn.discordapp.com/attachments/786976841851732038/830091403409358888/dzqdzqdzqd.png"};
         return (
+            <KeyboardAvoidingView
+                behavior={Platform.OS == "ios" ? "padding" : "height"}
+                keyboardVerticalOffset={Platform.OS == "ios" ? 0 : 20}
+                enabled={Platform.OS === "ios" ? true : false}
+                style={styles.main_container}>
             <View style={styles.main_container}>
                 <ImageBackground source={image} style={styles.image}>
                 <Logo/>
@@ -87,6 +97,7 @@ export default class Login extends React.Component<State> {
                 </View>
                 </ImageBackground>
             </View>
+            </KeyboardAvoidingView>
         );
         }
     

@@ -1,5 +1,5 @@
 import React from 'react';
-import {View , StyleSheet, ImageBackground, Text,  } from 'react-native';
+import {View , StyleSheet, ImageBackground, Text, KeyboardAvoidingView } from 'react-native';
 import Button from '../components/buttons/LogButton';
 import Logo from "../components/logos/Logo";
 import MyInformation from "../components/blocs/MyInformation";
@@ -17,7 +17,7 @@ interface State{
     title: string;
     cm: string;
     kg: string;
-    civility:string;
+    civility:number;
     birthday:string;
 }
 
@@ -86,34 +86,48 @@ export default class Login extends React.Component<State> {
     }
 
     register (){
-        const json = JSON.stringify(
-                    {   email: this.state.email,
-                        password: this.state.password,
-                        lastName: this.state.name,
-                        firstName: this.state.firstname,
-                        adress:"jflsdkjfhsk dkjslfj",
-                        // cm: this.state.cm,
-                        // kg: this.state.kg,
-                        civility: 1,
-                        birthdate: this.state.birthday,
-                        role:false
+        var mail= this.state.email
+        var pass= this.state.password
+        var name =this.state.name
+        var firstN= this.state.firstname
+        var birth= this.state.birthday
+                const json =
+                    {   lastName: name,
+                    firstName: firstN,
+                    birthdate: birth,
+                    address: "13006 Marseille Avenue du Prado",
+                    role: true,
+                    civility: 1,
+                    email: mail,
+                    password: pass
+                    }
+                axios.post(
+                    `http://192.168.1.49:8000/register`, json)
+                    .then((response) => {
+                    // handle success
+                    if (response.status == 201){
+                        console.log("trus")
+                    } else {
+                        console.log(response.status);
+                    }
+                    },(error) => {
+                    //     // handle error
+                        console.log ( "  s  ")
+                    //     console.log(error.request);
+                    // console.log(error.message);
+                    // console.log(error.config);
+                    console.log(error)
                     });
-        axios.post(
-            `http://192.168.1.49:8000/register`, json)
-            .then(function (response) {
-                console.log(response);
-                console.log("salut vivant")
-
-              })
-              .catch(function (error) {
-                console.log(error.data.status);
-                console.log("salut err")
-              })
         }
 
     render() {
         const image = {uri :"https://cdn.discordapp.com/attachments/786976841851732038/830091403409358888/dzqdzqdzqd.png"};
         return (
+            <KeyboardAvoidingView
+                behavior={Platform.OS == "ios" ? "padding" : "height"}
+                keyboardVerticalOffset={Platform.OS == "ios" ? 0 : 20}
+                enabled={Platform.OS === "ios" ? true : false}
+                style={styles.main_container}>
             <View style={styles.main_container}>
                 <ImageBackground source={image} style={styles.image}>
                 <View style={styles.top_container}>
@@ -136,7 +150,7 @@ export default class Login extends React.Component<State> {
                     updateKg={(val:string) => this.updateKg(val)}
                 />
                 <View style={styles.button_container}>  
-                <Button
+                    <Button
                     title="Return"
                     onClick={() => this.props.navigation.navigate('Login')}
                     color= "red"
@@ -151,6 +165,7 @@ export default class Login extends React.Component<State> {
                 </View>
                 </ImageBackground>
             </View>
+            </KeyboardAvoidingView>
         );
     }    
     
