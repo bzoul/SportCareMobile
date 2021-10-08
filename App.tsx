@@ -1,13 +1,14 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
 import Login from './views/Login';
 import Register from './views/Register';
 import Test from './views/Test';
 import Chat from './views/Chat';
 import Profil from './views/Profil';
+
+import Sensor from './views/Sensor';
 import 'react-native-gesture-handler';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
 
 
 const Stack = createStackNavigator();
@@ -15,9 +16,10 @@ const Stack = createStackNavigator();
 class App extends React.Component {
   render() {
     return (
-      <NavigationContainer >
-        <Stack.Navigator 
+      <NavigationContainer>
+        <Stack.Navigator
           screenOptions={{
+            
             headerShown: false
         }}>
           <Stack.Screen
@@ -40,12 +42,11 @@ class App extends React.Component {
             name="Profil"
             component={Profil}
           />
+
         </Stack.Navigator>
       </NavigationContainer>
     );
   }
 }
 
-
 export default App;
-

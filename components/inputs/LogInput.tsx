@@ -1,21 +1,40 @@
 import React from 'react'
 import {TextInput, View, StyleSheet } from 'react-native'
 
-const LogInput = () => {
-    return (
+export default class LogInput extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+    handleEmail = (e:string) => {
+        this.props.updateEmail(e)
+    }
+    handlePassword = (e:string) => {
+        this.props.updatePassword (e)
+    }
+
+    
+    render(){
+        return (
         <View style={styles.text_input_container}>
             <TextInput
             style={styles.input_text}
             placeholder=" @ email"
             placeholderTextColor='grey'
+            onChangeText={text => this.handleEmail(text)}
+            color="black"
             />
             <TextInput
             style={styles.input_text}
             placeholder=" Password"
+            onChangeText={text => this.handlePassword(text)}
             placeholderTextColor='grey'
+            secureTextEntry={true}
+            color="black"
             />    
         </View>
     );
+    }
+    
     }
 
 const styles = StyleSheet.create ({
@@ -35,4 +54,3 @@ const styles = StyleSheet.create ({
     },
 })
 
-export default LogInput;

@@ -3,9 +3,33 @@ import {Text, TextInput, View , StyleSheet } from 'react-native'
 import {Picker} from '@react-native-picker/picker';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import RNPickerSelect from 'react-native-picker-select';
-import HoriInput from '../inputs/HorizontalInput';
 
 export default class LogInput extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    handleName = (e:string) => {
+        this.props.updateName(e)
+    }
+
+    handleFirstname = (e:string) => {
+        this.props.updateFirstname(e)
+    }
+
+    handleEmail = (e:string) => {
+        this.props.updateEmail(e)
+    }
+
+    //lance la fonction updatePassword du composant Login
+    handleBirthday = (e:string) => {
+        this.props.updateBirthday(e)
+    }
+
+    handleCivility = (e:string) => {
+        this.props.updateCivility(e)
+    }
+
     render() {
         return (
             <View>
@@ -13,16 +37,44 @@ export default class LogInput extends React.Component {
                 <View style={styles.crea_container}>
                     
                     <View style={styles.text_placement}>
-                        <HoriInput place1= 'Name' place2='Firstname'/>
+                        <TextInput
+                        style={styles.input_text}
+                        placeholder="Name"
+                        placeholderTextColor='grey'
+                        onChangeText={text => this.handleName(text)}
+                        color="black"
+                        />
+                        <TextInput
+                        style={styles.input_text}
+                        placeholder= "Firstname"
+                        placeholderTextColor='grey'
+                        onChangeText={text => this.handleFirstname(text)}
+                        color="black"
+                        />
                     </View>
                     <View style={styles.text_placement}>
-                        <HoriInput place1= 'birthday' place2='civility'/>
+                        <TextInput
+                        style={styles.input_text}
+                        placeholder="Birthday"
+                        placeholderTextColor='grey'
+                        onChangeText={text => this.handleBirthday(text)}
+                        color="black"
+                        />
+                        <TextInput
+                        style={styles.input_text}
+                        placeholder= "Civility"
+                        placeholderTextColor='grey'
+                        onChangeText={text => this.handleCivility(text)}
+                        color="black"
+                        />
                     </View>
                     <TextInput
                         style={[styles.input_text, styles.width]}
                         placeholder="@ email"
                         placeholderTextColor='grey'
-                        />
+                        onChangeText={text => this.handleEmail(text)}
+                        color="black"
+                    />
                 </View>
             </View>
         );
@@ -65,6 +117,11 @@ const styles = StyleSheet.create ({
         fontSize:20,
         marginLeft:30,
         marginBottom:10
+    },
+    bloc_container:{
+        width:"100%",
+        justifyContent:'center',
+        alignItems:'center',
     }
 
 })

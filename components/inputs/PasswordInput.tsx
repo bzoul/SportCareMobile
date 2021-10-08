@@ -3,6 +3,17 @@ import {Text, TextInput, View , StyleSheet } from 'react-native'
 import HoriInput from '../inputs/HorizontalInput';
 
 export default class PasswordInput extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    handlePassword = (e:string) => {
+        this.props.updatePassword (e)
+    }
+
+    handlePassword2 = (e:string) => {
+        this.props.updatePassword2(e)
+    }
     render() {
         return (
             <View>
@@ -10,7 +21,24 @@ export default class PasswordInput extends React.Component {
                 <View style={styles.crea_container}>
                     <Text style={styles.titre}> My password</Text>
                     <View style={styles.text_placement}>
-                        <HoriInput place1= 'Password' place2='Password'/>
+                    <View style={styles.text_placement}>
+                        <TextInput
+                        style={styles.input_text}
+                        placeholder="Password"
+                        placeholderTextColor='grey'
+                        onChangeText={text => this.handlePassword(text)}
+                        secureTextEntry={true}
+                        color="black"
+                        />
+                        <TextInput
+                        style={styles.input_text}
+                        placeholder= "Password"
+                        placeholderTextColor='grey'
+                        onChangeText={text => this.handlePassword2(text)}
+                        secureTextEntry={true}
+                        color="black"
+                        />
+                    </View>
                     </View>
                 </View>
             </View>
@@ -40,6 +68,15 @@ const styles = StyleSheet.create ({
         fontSize:20,
         marginLeft:30,
         
+    },input_text: {
+        width:'47%',
+        height:40,
+        borderWidth:2,
+        marginBottom:10,
+        marginTop:10,
+        borderColor: 'grey',
+        backgroundColor:'white',
+        borderRadius: 10
     }
 
 })

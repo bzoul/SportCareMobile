@@ -3,6 +3,17 @@ import {Text, TextInput, View , StyleSheet } from 'react-native'
 import HoriInput from '../inputs/HorizontalInput';
 
 export default class MyMeasure extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    handleCm = (e:string) => {
+        this.props.updateCm(e)
+    }
+
+    handleKg = (e:string) => {
+        this.props.updateKg(e)
+    }
     render() {
         return (
             <View>
@@ -10,7 +21,20 @@ export default class MyMeasure extends React.Component {
                 <View style={styles.crea_container}>
                     <Text style={styles.titre}> My measure </Text>
                     <View style={styles.text_placement}>
-                        <HoriInput place1= 'Cm' place2='Kg'/>
+                    <TextInput
+                        style={styles.input_text}
+                        placeholder="cm"
+                        placeholderTextColor='grey'
+                        onChangeText={text => this.handleCm(text)}
+d                        color="black"
+                        />
+                        <TextInput
+                        style={styles.input_text}
+                        placeholder= "kg"
+                        placeholderTextColor='grey'
+                        onChangeText={text => this.handleKg(text)}
+                        color="black"
+                        />
                     </View>
                 </View>
             </View>
@@ -38,6 +62,15 @@ const styles = StyleSheet.create ({
         fontSize:20,
         marginLeft:30,
         
+    },
+    input_text: {
+        width:'45%',
+        height:40,
+        borderWidth:2,
+        marginBottom:10,
+        borderColor: 'grey',
+        backgroundColor:'white',
+        borderRadius: 10
     }
 
 })
