@@ -1,10 +1,15 @@
 import React from 'react';
 import Login from './views/Login';
 import Register from './views/Register';
+import Test from './views/Test';
+import Chat from './views/Chat';
+import Profil from './views/Profil';
+
 import Sensor from './views/Sensor';
 import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
+
 
 const Stack = createStackNavigator();
 
@@ -14,11 +19,30 @@ class App extends React.Component {
       <NavigationContainer>
         <Stack.Navigator
           screenOptions={{
-            headerShown: false,
-          }}>
-          <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="Register" component={Register} />
-          <Stack.Screen name="Sensor" component={Sensor} />
+            
+            headerShown: false
+        }}>
+          <Stack.Screen
+            name="Test"
+            component={Test}
+          />
+          <Stack.Screen
+            name="Login"
+            component={Login}
+          />
+          <Stack.Screen
+            name="Register"
+            component={Register}
+          />
+          <Stack.Screen
+            name="Chat"
+            component={Chat}
+          />
+          <Stack.Screen
+            name="Profil"
+            component={Profil}
+          />
+
         </Stack.Navigator>
       </NavigationContainer>
     );
