@@ -2,7 +2,7 @@ import React from 'react'
 import {Text, ScrollView, View , StyleSheet } from 'react-native'
 import BottomBar from '../components/blocs/Bottombar';
 
-export default class Test extends React.Component {
+export default class Stats extends React.Component {
     render() {
         return (
             <View>
@@ -19,7 +19,7 @@ export default class Test extends React.Component {
 const styles = StyleSheet.create ({
     main_container: {
         width:"100%",
-        backgroundColor: "green",
+        backgroundColor: "blue",
         height:"100%"
     },
     

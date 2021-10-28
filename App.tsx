@@ -1,9 +1,12 @@
+/* eslint-disable prettier/prettier */
 import React from 'react';
 import Login from './views/Login';
 import Register from './views/Register';
-import Test from './views/Test';
+import Dashboard from './views/Dashboard';
 import Chat from './views/Chat';
 import Profil from './views/Profil';
+import Stats from './views/Stats';
+import Electrocardiogramme from './views/Electrocardiogramme';
 
 import Sensor from './views/Sensor';
 import 'react-native-gesture-handler';
@@ -19,12 +22,19 @@ class App extends React.Component {
       <NavigationContainer>
         <Stack.Navigator
           screenOptions={{
-            
-            headerShown: false
+            headerShown: false,
         }}>
           <Stack.Screen
-            name="Test"
-            component={Test}
+            name="Dashboard"
+            component={Dashboard}
+          />
+          <Stack.Screen
+            name="Electrocardiogramme"
+            component={Electrocardiogramme}
+          />
+          <Stack.Screen
+            name="Stats"
+            component={Stats}
           />
           <Stack.Screen
             name="Login"
