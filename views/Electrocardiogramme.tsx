@@ -7,14 +7,41 @@
 /* eslint-disable no-trailing-spaces */
 import React from 'react';
 import {Text, ScrollView, View , StyleSheet,Image, Dimensions } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { color, withDecay } from 'react-native-reanimated';
 import BottomBar from '../components/blocs/Bottombar';  
 import Day from '../components/blocs/progressCircle';
-import Config from "../../Config.json";
+import {LineChart} from 'react-native-chart-kit';
 
 const widthScreen = Dimensions.get('window').width;
 const heightScreen = Dimensions.get('window').height;
+var bpm = 57*100/120; 
+var bpmText = "57 ";
+
+const chartData = {
+    labels: [0,10,20,30,40,50,60,70,90,100],
+    datasets: [
+      {
+        data: [1.1,1.15,1.1,1,0.9,0.85,0.9,1,
+            1.1,1.15,1.1,1,0.9,0.85,0.9,1,
+            1.1,1.15,1.1,1,0.9,0.85,0.9,1,
+            1.1,1.15,1.1,1,0.9,0.85,0.9,1,
+            1.1,1.15,1.1,1,0.9,0.85,0.9,1,],
+        color: (opacity = 1) => `rgba(62, 39, 35, ${opacity})`, // optional
+        strokeWidth: 2 // optional
+      },
+    ],
+    legend: ["RR(ms) / temps (s)"] // optional
+  };
+  
+  const chartConfig = {
+    backgroundGradientFrom: "#ECEFF1",
+    backgroundGradientFromOpacity: 0,
+    backgroundGradientTo: "#ECEFF1",
+    backgroundGradientToOpacity: 0.5,
+    color: (opacity = 1) => `rgba(62, 39, 35, ${opacity})`,
+    strokeWidth: 2, // optional, default 3
+    barPercentage: 0.5,
+    useShadowColorFromDataset: false // optional
+  };
 
 export default class Electrocardiogramme extends React.Component {
     render() {
@@ -22,7 +49,10 @@ export default class Electrocardiogramme extends React.Component {
             <>
                 <ScrollView style={styles.main_container}>
                     <View style={styles.header}>
-                        <Image style={styles.heart} source={require("../icon/like.png")}/>
+                        <View style={styles.entete}>
+                            <Image style={styles.arrow} source={require("../icon/down-arrow.png")}/>
+                            <Image style={styles.heart} source={require("../icon/like.png")}/>
+                        </View>
                         <View style={styles.formedujour}>
                             <Text style={{textAlign:'center'}}>
                                 Forme du jour
@@ -37,9 +67,17 @@ export default class Electrocardiogramme extends React.Component {
                         </View>
                     </View>
                     <View style={styles.bpmView}>
-                                <Day textFontWeight = "bold" textFontColor= "grey" ringBgColor="#E0E0E0" textFontSize = {30}
-                                ringColor={Config.AppColor.Second} percent= "50" text="yes" radius={100} bgRingWidth={14} bigone = {true}/>
-                            </View>
+                                <Day textFontWeight = "bold" textFontColor= "black" ringBgColor="#E0E0E0" textFontSize = {30}
+                                ringColor="#0094ff" percent= {bpm} text={bpmText} radius={100} bgRingWidth={14} viewType = "Electro" />
+                    </View>
+                    <View style={styles.chartView}>
+                        <LineChart 
+                            data={chartData}
+                            width={widthScreen * 94/ 100}
+                            height={heightScreen * 23 / 100}
+                            chartConfig={chartConfig}
+                        />
+                    </View>
                 </ScrollView>
                 <View><BottomBar navigation={this.props.navigation}/></View>
             </>
@@ -52,23 +90,34 @@ const styles = StyleSheet.create({
         width:"100%",
         backgroundColor: "white",
         height:"100%",
-        borderWidth:1,
+    },
+    entete:{
+        width: widthScreen * 94 / 100,
+        height: heightScreen * 4 / 100,
+        flexDirection : 'row',
     },
     heart:{
         resizeMode:'contain',
         height: 35,
         width: 35,
         tintColor: 'grey',
-        left: widthScreen * 80 / 100,
+        left: widthScreen * 70 / 100,
+    },
+    arrow:{
+        resizeMode:'contain',
+        height: 35,
+        width: 35,
+        left: widthScreen * 5 / 100,
+        tintColor: 'black',
+        transform: [{ rotate: '90deg' }],
     },
     header:{
         left:  widthScreen * 3 / 100,
-        width: widthScreen * 94 / 100,
-        borderWidth:1,
         top:heightScreen * 3 / 100,
         height: heightScreen * 18 / 100,
     },
     formedujour:{
+        top:heightScreen * 5 / 100,
         width: widthScreen * 94 / 100,
         alignItems :'center',
     },
@@ -86,8 +135,15 @@ const styles = StyleSheet.create({
         tintColor:'grey', 
     },
     bpmView:{
-        top: heightScreen * 8 / 100,
+        top: heightScreen * 6 / 100,
         height: heightScreen * 40 / 100,
         alignItems :'center',
-    }
-})
+    },
+    chartView:{
+        borderWidth:1,
+        left: widthScreen * 3 / 100,
+        width: widthScreen * 94 / 100,
+        height: heightScreen * 28 / 100,
+        alignContent : 'center',
+    },
+});

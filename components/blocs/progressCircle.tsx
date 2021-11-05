@@ -2,7 +2,8 @@
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable prettier/prettier */
 import React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, Image, Button } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 /**
  * Function that calculates rotation of the semicircle for firstProgressLayer
@@ -33,7 +34,7 @@ const renderThirdLayer = (
   innerRingStyle,
   startDegrees,
   text, 
-  bigone
+  viewType
 ) => {
   let rotation = 45 + startDegrees;
   let offsetLayerRotation = -135 + startDegrees;
@@ -49,6 +50,8 @@ const renderThirdLayer = (
      **/
 
     return (
+      <>
+      
       <View
         style={[
           styles.secondProgressLayer,
@@ -57,9 +60,11 @@ const renderThirdLayer = (
           ringColorStyle,
         ]}
       />
+      </>
     );
   } else {
     return (
+      <>
       <View
         style={[
           styles.offsetLayer,
@@ -68,6 +73,7 @@ const renderThirdLayer = (
           { transform: [{ rotateZ: `${offsetLayerRotation}deg` }] },
         ]}
       />
+      </>
     );
   }
 };
@@ -86,7 +92,7 @@ const CircularProgress = ({
   bgColor,
   startDegrees,
   text,
-  bigone
+  viewType
 }) => {
   const commonStyles = {
     width: radius * 2,
@@ -160,7 +166,7 @@ const CircularProgress = ({
     <>
     <View style={[styles.container, { width: radius * 2, height: radius * 2 }]}>
       {
-      bigone === true ? 
+      viewType === 'bigone' ? 
       <>
         <View style={{position:'absolute', borderWidth:1 , borderColor : 'black', height:10, top:-10, left:99}}/>
         <View style={{position:'absolute', borderWidth:1 , borderColor : 'black', height:10, bottom:-10, left:99}}/> 
@@ -213,19 +219,52 @@ const CircularProgress = ({
         innerRingStyle,
         startDegrees,
         text,
-        bigone
+        viewType
       )}
-      <Text
-        style={[
-          styles.display,
-          {
-            fontSize: textFontSize,
-            fontWeight: textFontWeight,
-            color: textFontColor,
-          },
-        ]}>
-        {text}
-      </Text>
+      {
+        viewType !== 'Electro' ?
+        <Text
+          style={[
+            styles.display,
+            {
+              fontSize: textFontSize,
+              fontWeight: textFontWeight,
+              color: textFontColor,
+            },
+          ]}>
+          {text}
+        </Text>
+        :
+        <View style={{alignItems:'center'}}>
+          <View style={{flexDirection:'row', top:-30}}>
+            <Image style={{height:13,width:13, top:4, right:2, tintColor:'#0094ff'}} source={require('../../icon/like.png')}/>
+            <Text>
+              bpm
+            </Text>
+          </View>
+          <Text
+            style={[
+              styles.display,
+              {
+                top:-10,
+                fontSize: 37,
+                fontWeight: 'bold',
+                color: 'black',
+              },
+            ]}>
+              {text}
+          </Text>
+          <Text style={{top:17}}>
+            01:34
+          </Text>
+          <TouchableOpacity style={{top:25, borderWidth:3, borderColor:'white'}}
+          onPress={() => {}}>
+            <Text style={{fontWeight:'bold', color:'#0094ff'}}>
+              CANCELL
+            </Text>
+          </TouchableOpacity>
+        </View>
+      }
     </View>
     </>
   );
@@ -245,7 +284,6 @@ CircularProgress.defaultProps = {
   clockwise: true,
   bgColor: 'white',
   startDegrees: 0,
-  bigone : false,
 };
 
 /**

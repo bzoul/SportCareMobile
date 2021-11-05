@@ -37,7 +37,7 @@ export default class Dashboard extends React.Component {
                     </View>
                     <TouchableOpacity style={[styles.formeView, {right: widthScreen * 7 / 100}]} 
                     onPress={ () => {
-                        this.props.navigation.navigate('Electrocardiogramme')
+                        this.props.navigation.navigate('Electrocardiogramme');
                     }}>
                         <Image style={styles.emoji} source={require("../icon/emoji-3.png")}/>
                         <Image style={styles.heart} source={require("../icon/like.png")}/>
@@ -48,11 +48,11 @@ export default class Dashboard extends React.Component {
 
                     <Text style={styles.titreFormeJournaliere}>Forme journalière</Text>
                     <View style={styles.week}>
-                        <Day textFontWeight = "normal" textFontColor= "grey" ringBgColor="#E0E0E0" ringColor="grey" percent= "50" text="Lun" radius={25}></Day>
-                        <Day textFontWeight = "normal" textFontColor= "grey" ringBgColor="#E0E0E0" ringColor="grey" percent= "25" text="Mar" radius={25}></Day>
-                        <Day textFontWeight = "normal" textFontColor= "grey" ringBgColor="#E0E0E0" ringColor="grey" percent= "25" text="Mer" radius={25}></Day>
-                        <Day textFontWeight = "normal" textFontColor= "grey" ringBgColor="#E0E0E0" ringColor="grey" percent= "75" text="Jeu" radius={25}></Day>
-                        <Day textFontWeight = "normal" textFontColor= "grey" ringBgColor="#E0E0E0" ringColor="grey" percent= "0" text="Ven" radius={25}></Day>
+                        <Day textFontWeight = "normal" textFontColor= "grey" ringBgColor="#E0E0E0" ringColor="grey" percent= "50" text="Lun" radius={25} viewType = {"littleOne"}></Day>
+                        <Day textFontWeight = "normal" textFontColor= "grey" ringBgColor="#E0E0E0" ringColor="grey" percent= "25" text="Mar" radius={25} viewType = {"littleOne"}></Day>
+                        <Day textFontWeight = "normal" textFontColor= "grey" ringBgColor="#E0E0E0" ringColor="grey" percent= "25" text="Mer" radius={25} viewType = {"littleOne"}></Day>
+                        <Day textFontWeight = "normal" textFontColor= "grey" ringBgColor="#E0E0E0" ringColor="grey" percent= "75" text="Jeu" radius={25} viewType = {"littleOne"}></Day>
+                        <Day textFontWeight = "normal" textFontColor= "grey" ringBgColor="#E0E0E0" ringColor="grey" percent= "0" text="Ven" radius={25} viewType = {"littleOne"}></Day>
                     </View>
                     
                     <View style={styles.readinessView}>
@@ -69,7 +69,7 @@ export default class Dashboard extends React.Component {
                                 <Text style={styles.textFormeToday}>High</Text>
                         </View> 
                         <Day textFontWeight = "bold" textFontColor= "grey" ringBgColor="#E0E0E0" textFontSize = {30}
-                            ringColor={colorReadiness} percent= {readiness} text={readinessTxt} radius={100} bgRingWidth={14} bigone = {true}/>
+                            ringColor={colorReadiness} percent= {readiness} text={readinessTxt} radius={100} bgRingWidth={14} viewType = "bigone"/>
                     </View>
                 </View>
 
@@ -195,11 +195,11 @@ const styles = StyleSheet.create({
     viewFormeToday:{
         height: heightScreen * 4 / 100,
         width : widthScreen * 20 / 100,
-        borderWidth : 1,
     },
     textFormeToday:{
         textAlign:'center',
         color:'white',
+        top: 5,
     },
     textIMC:{
         textAlign:'center',

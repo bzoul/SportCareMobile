@@ -7,6 +7,8 @@ import Chat from './views/Chat';
 import Profil from './views/Profil';
 import Stats from './views/Stats';
 import Electrocardiogramme from './views/Electrocardiogramme';
+import Training from './views/Training';
+import TrainingChoice from './views/TrainingChoice';
 
 import Sensor from './views/Sensor';
 import 'react-native-gesture-handler';
@@ -25,8 +27,16 @@ class App extends React.Component {
             headerShown: false,
         }}>
           <Stack.Screen
+            name="TrainingChoice"
+            component={TrainingChoice}
+          />
+          <Stack.Screen
             name="Dashboard"
             component={Dashboard}
+          />
+          <Stack.Screen
+            name="Training"
+            component={Training}
           />
           <Stack.Screen
             name="Electrocardiogramme"
