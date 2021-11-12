@@ -6,59 +6,26 @@
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable react/self-closing-comp */
 /* eslint-disable prettier/prettier */
+import { voidTypeAnnotation } from '@babel/types';
 import React from 'react';
-import { Text, FlatList, View, StyleSheet, Dimensions, Pressable, Image, TouchableOpacity } from 'react-native';
+import { Text, TextInput, View, StyleSheet, Dimensions, Image, TouchableOpacity } from 'react-native';
 import BottomBar from '../components/blocs/Bottombar';
 
 const widthScreen = Dimensions.get('window').width;
 const heightScreen = Dimensions.get('window').height;
 
-const DATA = [
-    {
-        id:1,
-        path: require('../pics/running_sport.jpg'),
-        text: 'Course à pied',
-    },
-    {
-        id:2,
-        path: require('../pics/velo_sport.jpg'),
-        text: 'Cyclisme',
-    },
-    {
-        id:3,
-        path: require('../pics/natation_sport.jpg'),
-        text: 'Natation',
-    },
-    {
-        id:4,
-        path: require('../pics/muscu_sport.jpg'),
-        text: 'Musculation',
-    },
-]
-
-const SportImage = ({ item, onPress}) => (  
-    <TouchableOpacity
-        style={styles.touchableSport}
-        onPress={onPress}>
-        <Image style={styles.imageSport} source={item.path} />
-        <Text style={styles.textSport}>
-            {item.text}
-        </Text>
-    </TouchableOpacity>
-);
-
-export default class TrainingChoice extends React.Component {
+export default class Parametre extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
         }
     }
 
-    render() {         
+    render() {
         return (
-            <>
+            <View style={styles.main_container}>
                 <View style={styles.header}>
-                <View style={styles.topheader}>
+                    <View style={styles.topheader}>
                         <TouchableOpacity style={{
                             height: 35, width: 35,
                         }} onPress={() => {
@@ -69,25 +36,27 @@ export default class TrainingChoice extends React.Component {
                         <Image style={styles.logo_image} source={require("../components/logos/logo_mobile.png")} />
                     </View>
                     <Text style={styles.textHeader}>
-                        Séléctionnez une activité
+                        Paramêtre du compte
                     </Text>
-
                 </View>
-                <View style={styles.main_container}>
-                    <FlatList
-                        data={DATA}
-                        renderItem={({ item }) => <SportImage item={item} onPress={() => {
-                           this.props.navigation.navigate('TrainingResume')
-                        }}
-                        />}
-                        keyExtractor={(item) => item.id}
-                    />
+                <View style={styles.myInfos}>
+                    <Text>
+                        Mettre à jour mes informations
+                    </Text>
+                    <View style={styles.nomprenom}>
+                        <TextInput style={styles.input}
+                            placeholder="Nom"
+                            keyboardType="default"
+                        />
+                        <TextInput style={styles.input}
+                            
+                            placeholder="Prenom"
+                            keyboardType="default"
+                        />
+                    </View>
                 </View>
-
-
-
                 <BottomBar navigation={this.props.navigation} />
-            </>
+            </View>
         );
     }
 }
@@ -107,8 +76,8 @@ const styles = StyleSheet.create({
         height: heightScreen * 20 / 100,
         backgroundColor: 'white',
     },
-    topheader:{
-        flexDirection : 'row',
+    topheader: {
+        flexDirection: 'row',
         top: heightScreen * 5 / 100,
         left: widthScreen * 5 / 100,
     },
@@ -125,30 +94,27 @@ const styles = StyleSheet.create({
         tintColor: 'black',
         transform: [{ rotate: '90deg' }],
     },
-    touchableSport: {
-        height: heightScreen * 15 / 100,
-        marginHorizontal: widthScreen * 15 / 100,
-        marginVertical : heightScreen * 1 / 100,
-        alignItems:'center',
-    },
-    imageSport: {
-        resizeMode: 'contain',
-        height: heightScreen * 15 / 100,
-        
-    },
-    textSport:{
-        color:'white',
-        top: heightScreen * -3 / 100,
-        left : widthScreen * -12 / 100,
-        backgroundColor : 'rgba(0,0,0,0.4)',
-        textAlign:'left',
-    },
     logo_image: {
         width: 150,
         height: 30,
         resizeMode: 'contain',
         left: widthScreen * 50 / 100,
-        top:5,
+        top: 5,
+    },
+    myInfos: {
+        height: heightScreen * 30 / 100,
+        width: widthScreen * 94 / 100,
+        marginHorizontal: widthScreen * 3 / 100,
+    },
+    nomprenom: {
+        flexDirection: 'row',
+        justifyContent : 'space-around',
+        marginVertical : 20,
+      },
+    input:{
+        borderWidth: 1,
+        width : widthScreen * 40 / 100,
+        height: 35,
     },
 });
 

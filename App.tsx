@@ -12,8 +12,10 @@ import TrainingChoice from './views/TrainingChoice';
 
 import Sensor from './views/Sensor';
 import 'react-native-gesture-handler';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import TrainingResume from './views/TrainingResume';
+import Parametre from './views/Parametre';
 
 
 const Stack = createStackNavigator();
@@ -25,14 +27,22 @@ class App extends React.Component {
         <Stack.Navigator
           screenOptions={{
             headerShown: false,
-        }}>
-          <Stack.Screen
-            name="TrainingChoice"
-            component={TrainingChoice}
-          />
+          }}>
           <Stack.Screen
             name="Dashboard"
             component={Dashboard}
+          />
+          <Stack.Screen
+            name="Parametre"
+            component={Parametre}
+          />
+          <Stack.Screen
+            name="TrainingResume"
+            component={TrainingResume}
+          />
+          <Stack.Screen
+            name="TrainingChoice"
+            component={TrainingChoice}
           />
           <Stack.Screen
             name="Training"
