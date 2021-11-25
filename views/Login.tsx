@@ -29,6 +29,7 @@ export default class Login extends React.Component<State> {
             password: null,  
             token: null,          
         };
+        this.getData()
     }
 
     // supprime le token stocker sur le telephone
@@ -84,6 +85,27 @@ export default class Login extends React.Component<State> {
         console.log(this.state.password)
 
     }
+
+    getData = async () => {
+        try {
+            const valueToken = await AsyncStorage.getItem('token');
+            if (valueToken !== null){
+                this.setState({token: valueToken});
+            } else {
+                return false;
+            }
+        } catch(e) {
+           return false;
+        }
+      }
+
+    getAllData(){
+        if (this.state.token !== null){
+            this.tokenVerif();
+        } else {
+            console.log('nop')
+        }
+    }
     
     login (){
         var log = this.state.email;
@@ -112,6 +134,7 @@ export default class Login extends React.Component<State> {
     }
     
     render(){
+        this.getAllData()
         const image = {uri :"https://cdn.discordapp.com/attachments/786976841851732038/830091403409358888/dzqdzqdzqd.png"};
         return (
             <KeyboardAvoidingView
