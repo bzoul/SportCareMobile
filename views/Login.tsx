@@ -1,10 +1,11 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
+/* eslint-disable react-native/no-inline-styles */
+/* eslint-disable semi */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable react/jsx-no-undef */
+/* eslint-disable quotes */
+/* eslint-disable no-trailing-spaces */
+/* eslint-disable react/self-closing-comp */
+/* eslint-disable prettier/prettier */
 import React from 'react'
 import {View , StyleSheet, ImageBackground, KeyboardAvoidingView} from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
