@@ -4,7 +4,7 @@
 /* eslint-disable quotes */
 /* eslint-disable prettier/prettier */
 import React from 'react';
-import {Text, TextInput, View , StyleSheet, Pressable, Image } from 'react-native';
+import {Text, TextInput, View , StyleSheet, Pressable, Image, Alert } from 'react-native';
 import Config from "../../Config.json";
 var state = "home"
 const BottomBar = ({ navigation }) => (
@@ -24,7 +24,7 @@ const BottomBar = ({ navigation }) => (
                         }
                     </Pressable>
                     <Pressable style={styles.icon} onPress={() => {
-                        navigation.navigate('Chat')
+                        navigation.navigate('Training')
                         state = "running"
                     }}>
                         <Image style={styles.icon} source={require("../../icon/running.png")}/>
@@ -48,7 +48,7 @@ const BottomBar = ({ navigation }) => (
                         }
                     </Pressable>
                     <Pressable style={styles.icon} onPress={() =>{
-                        navigation.navigate('Stats'),
+                        navigation.navigate('Stats')
                         state = "statistic"
                         }}>
                             <Image style={styles.icon} source={require("../../icon/statistics.png")}/>
@@ -60,7 +60,7 @@ const BottomBar = ({ navigation }) => (
                         }
                     </Pressable>
                     <Pressable style={styles.icon} onPress={() => {
-                        navigation.navigate('Chat'),
+                        navigation.navigate('Chat')
                         state = "chat"
                     }}>
                         <Image style={styles.icon} source={require("../../icon/chat.png")}/>

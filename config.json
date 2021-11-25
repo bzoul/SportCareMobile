@@ -1,10 +1,11 @@
 {
     "AppColor": {
-        "Second": "#0094ff", //bleu
+        "Second": "#0094ff",
         "font": "#434e5a",
         "primary": "#ff3b30",
         "color": "#2FB105"
     },
+    "baseURL": "ip de ton pc",
     "AppIcon": {
         
     }

@@ -7,9 +7,11 @@
  */
 import React from 'react'
 import {View , StyleSheet, ImageBackground, KeyboardAvoidingView} from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Button from '../components/buttons/LogButton'
 import Logo from "../components/logos/Logo"
 import LogInput from "../components/inputs/LogInput"
+import Config from '../config.json';
 import axios from 'axios';
 interface State{
     navigation: any;
@@ -23,14 +25,57 @@ export default class Login extends React.Component<State> {
         super(props);
         this.state={
             email: null,
-            password: null,            
+            password: null,  
+            token: null,          
         };
+    }
+
+    // supprime le token stocker sur le telephone
+    removeToken = async () => {
+        try {
+          await AsyncStorage.removeItem('token');
+          await AsyncStorage.removeItem('userId');
+          this.setState({ token: null})
+        } catch (e) {
+            console.log('RmToken  '+e);
+        }
+    }
+
+    // sauvegarde le token dans la memoire du telephone
+    storeToken = async (value:string) => {
+        try {
+            await AsyncStorage.setItem('token', value)
+        //   console.log(this.state.token);
+        } catch (e) {
+            console.log('storeToken '+e);
+        }
+    }
+
+    tokenVerif(){
+        const json = JSON.stringify({
+            token: this.state.token
+        });
+        axios.post(
+            `${Config.baseURL}webservice/tokenVerif`, json)
+          .then((response) => {
+            // handle success
+            if (response.data){
+                // ouvre la page d'autoLogin
+                console.log(response.data)
+                this.props.navigation.navigate('AutoLogin');
+            }
+            else {
+                console.log('token invalid '+this.state.token);
+            }
+          },(error) => {
+            // handle error
+            console.log('log11 '+error);
+          });
     }
 
     updateEmail = (data:string) => {
         this.setState({email:data})
         console.log(this.state.email)
-
     }
 
     updatePassword = (data:string) => {
