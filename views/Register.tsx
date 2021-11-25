@@ -1,3 +1,10 @@
+/* eslint-disable semi */
+/* eslint-disable space-infix-ops */
+/* eslint-disable react-native/no-inline-styles */
+/* eslint-disable react/self-closing-comp */
+/* eslint-disable quotes */
+/* eslint-disable no-trailing-spaces */
+/* eslint-disable prettier/prettier */
 import React from 'react';
 import {View , StyleSheet, ImageBackground, Text, KeyboardAvoidingView } from 'react-native';
 import Button from '../components/buttons/LogButton';
@@ -99,7 +106,7 @@ export default class Login extends React.Component<State> {
                     role: true,
                     civility: 1,
                     email: mail,
-                    password: pass
+                    password: pass,
                     }
                 axios.post(
                     `http://192.168.1.49:8000/register`, json)

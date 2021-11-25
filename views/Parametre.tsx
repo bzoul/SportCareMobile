@@ -29,31 +29,132 @@ export default class Parametre extends React.Component {
                         <TouchableOpacity style={{
                             height: 35, width: 35,
                         }} onPress={() => {
-                            this.props.navigation.navigate('TrainingChoice')
+                            this.props.navigation.navigate('Profil')
                         }}>
                             <Image style={styles.arrow} source={require("../icon/down-arrow.png")} />
                         </TouchableOpacity>
                         <Image style={styles.logo_image} source={require("../components/logos/logo_mobile.png")} />
                     </View>
                     <Text style={styles.textHeader}>
-                        Paramêtre du compte
+                        Paramêtres du compte
                     </Text>
                 </View>
                 <View style={styles.myInfos}>
-                    <Text>
+                    <Text style={styles.titres}>
                         Mettre à jour mes informations
                     </Text>
                     <View style={styles.nomprenom}>
-                        <TextInput style={styles.input}
-                            placeholder="Nom"
-                            keyboardType="default"
-                        />
-                        <TextInput style={styles.input}
-                            
-                            placeholder="Prenom"
-                            keyboardType="default"
-                        />
+                        <View style={{ flexDirection: 'column' }}>
+                            <Text>
+                                Nom
+                            </Text>
+                            <TextInput style={styles.input}
+                                placeholder="Nom actuel"
+                                keyboardType="default"
+                            />
+                        </View>
+                        <View style={{ flexDirection: 'column' }}>
+                            <Text>
+                                Prenom
+                            </Text>
+                            <TextInput style={styles.input}
+                                placeholder="Prenom actuel "
+                                keyboardType="default"
+                            />
+                        </View>
+
                     </View>
+                    <View style={[styles.nomprenom, { marginVertical: 20 }]}>
+                        <View style={{ flexDirection: 'column' }}>
+                            <Text>
+                                Date de naissance
+                            </Text>
+                            <TextInput style={styles.input}
+                                placeholder="DDN actuelle"
+                                keyboardType="default"
+                            />
+                        </View>
+                        <View style={{ flexDirection: 'column' }}>
+                            <Text>
+                                Civilité
+                            </Text>
+                            <TextInput style={styles.input}
+                                placeholder="Civilité acutel"
+                                keyboardType="default"
+                            />
+                        </View>
+                    </View>
+                    <TouchableOpacity style={[styles.buttonConfirm, { marginTop: -5 }]}
+                        onPress={() => {}}
+                    >
+                        <Text>
+                            CONFIRMER
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.mdp}>
+                    <Text style={styles.titres}>
+                        Mettre à jour mon mot de passe
+                    </Text>
+                    <View style={styles.nomprenom}>
+                        <View style={{ flexDirection: 'column' }}>
+                            <Text>
+                                Mot de passe
+                            </Text>
+                            <TextInput style={styles.input}
+                                placeholder="mdp actuel cripté"
+                                keyboardType="default"
+                            />
+                        </View>
+                        <View style={{ flexDirection: 'column' }}>
+                            <Text>
+                                Confirmer le mot de passe
+                            </Text>
+                            <TextInput style={styles.input}
+                                placeholder="same"
+                                keyboardType="default"
+                            />
+                        </View>
+                    </View>
+                    <TouchableOpacity style={[styles.buttonConfirm, { marginTop: 10 }]}
+                        onPress={() => { }}
+                    >
+                        <Text>
+                            CONFIRMER
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.mesures}>
+                    <Text style={styles.titres}>
+                        Mettre à jour mes mensurations
+                    </Text>
+                    <View style={styles.nomprenom}>
+                        <View style={{ flexDirection: 'column' }}>
+                            <Text>
+                                Taille
+                            </Text>
+                            <TextInput style={styles.input}
+                                placeholder="Taille actuelle"
+                                keyboardType="default"
+                            />
+                        </View>
+                        <View style={{ flexDirection: 'column' }}>
+                            <Text>
+                                Poids
+                            </Text>
+                            <TextInput style={styles.input}
+                                placeholder="Poids actuel"
+                                keyboardType="default"
+                            />
+                        </View>
+                    </View>
+                    <TouchableOpacity style={[styles.buttonConfirm, { marginTop: 10 }]}
+                        onPress={() => { }}
+                    >
+                        <Text>
+                            CONFIRMER
+                        </Text>
+                    </TouchableOpacity>
                 </View>
                 <BottomBar navigation={this.props.navigation} />
             </View>
@@ -73,7 +174,7 @@ const styles = StyleSheet.create({
     },
     header: {
         width: widthScreen,
-        height: heightScreen * 20 / 100,
+        height: heightScreen * 18 / 100,
         backgroundColor: 'white',
     },
     topheader: {
@@ -85,7 +186,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 25,
         color: 'black',
-        top: heightScreen * 7 / 100,
+        top: heightScreen * 6 / 100,
     },
     arrow: {
         resizeMode: 'contain',
@@ -101,20 +202,43 @@ const styles = StyleSheet.create({
         left: widthScreen * 50 / 100,
         top: 5,
     },
+    titres: {
+        fontSize: 20,
+    },
     myInfos: {
-        height: heightScreen * 30 / 100,
+        height: heightScreen * 28 / 100,
         width: widthScreen * 94 / 100,
         marginHorizontal: widthScreen * 3 / 100,
+        borderBottomWidth: 1,
     },
     nomprenom: {
         flexDirection: 'row',
-        justifyContent : 'space-around',
-        marginVertical : 20,
-      },
-    input:{
+        justifyContent: 'space-around',
+    },
+    input: {
         borderWidth: 1,
-        width : widthScreen * 40 / 100,
+        width: widthScreen * 40 / 100,
         height: 35,
+    },
+    mdp: {
+        marginTop: 20,
+        height: heightScreen * 17 / 100,
+        width: widthScreen * 94 / 100,
+        marginHorizontal: widthScreen * 3 / 100,
+        borderBottomWidth: 1,
+    },
+    mesures: {
+        marginTop: 20,
+        height: heightScreen * 15 / 100,
+        width: widthScreen * 94 / 100,
+        marginHorizontal: widthScreen * 3 / 100,
+    },
+    buttonConfirm: {
+        alignSelf: 'center',
+        borderWidth: 1,
+        backgroundColor: '#0094ff',
+        borderColor: 'grey',
+        padding: 3,
     },
 });
 

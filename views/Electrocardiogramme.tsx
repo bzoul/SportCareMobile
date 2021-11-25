@@ -6,33 +6,34 @@
 /* eslint-disable react/self-closing-comp */
 /* eslint-disable no-trailing-spaces */
 import React from 'react';
-import {Text, ScrollView, View , StyleSheet,Image, Dimensions } from 'react-native';
-import BottomBar from '../components/blocs/Bottombar';  
+import { Text, ScrollView, View, StyleSheet, Image, Dimensions, TouchableOpacity } from 'react-native';
+import BottomBar from '../components/blocs/Bottombar';
 import Day from '../components/blocs/progressCircle';
-import {LineChart} from 'react-native-chart-kit';
+import { LineChart } from 'react-native-chart-kit';
+import { NavigationContainer } from '@react-navigation/native';
 
 const widthScreen = Dimensions.get('window').width;
 const heightScreen = Dimensions.get('window').height;
-var bpm = 57*100/120; 
+var bpm = 57 * 100 / 120;
 var bpmText = "57 ";
 
 const chartData = {
-    labels: [0,10,20,30,40,50,60,70,90,100],
+    labels: [0, 10, 20, 30, 40, 50, 60, 70, 90, 100],
     datasets: [
-      {
-        data: [1.1,1.15,1.1,1,0.9,0.85,0.9,1,
-            1.1,1.15,1.1,1,0.9,0.85,0.9,1,
-            1.1,1.15,1.1,1,0.9,0.85,0.9,1,
-            1.1,1.15,1.1,1,0.9,0.85,0.9,1,
-            1.1,1.15,1.1,1,0.9,0.85,0.9,1,],
-        color: (opacity = 1) => `rgba(62, 39, 35, ${opacity})`, // optional
-        strokeWidth: 2 // optional
-      },
+        {
+            data: [1.1, 1.15, 1.1, 1, 0.9, 0.85, 0.9, 1,
+                1.1, 1.15, 1.1, 1, 0.9, 0.85, 0.9, 1,
+                1.1, 1.15, 1.1, 1, 0.9, 0.85, 0.9, 1,
+                1.1, 1.15, 1.1, 1, 0.9, 0.85, 0.9, 1,
+                1.1, 1.15, 1.1, 1, 0.9, 0.85, 0.9, 1,],
+            color: (opacity = 1) => `rgba(62, 39, 35, ${opacity})`, // optional
+            strokeWidth: 2 // optional
+        },
     ],
     legend: ["RR(ms) / temps (s)"] // optional
-  };
-  
-  const chartConfig = {
+};
+
+const chartConfig = {
     backgroundGradientFrom: "#ECEFF1",
     backgroundGradientFromOpacity: 0,
     backgroundGradientTo: "#ECEFF1",
@@ -41,7 +42,7 @@ const chartData = {
     strokeWidth: 2, // optional, default 3
     barPercentage: 0.5,
     useShadowColorFromDataset: false // optional
-  };
+};
 
 export default class Electrocardiogramme extends React.Component {
     render() {
@@ -50,36 +51,40 @@ export default class Electrocardiogramme extends React.Component {
                 <ScrollView style={styles.main_container}>
                     <View style={styles.header}>
                         <View style={styles.entete}>
-                            <Image style={styles.arrow} source={require("../icon/down-arrow.png")}/>
-                            <Image style={styles.heart} source={require("../icon/like.png")}/>
+                            <TouchableOpacity onPress = {() => {
+                                this.props.navigation.navigate('Dashboard');
+                            }}>
+                                <Image style={styles.arrow} source={require("../icon/down-arrow.png")} />
+                            </TouchableOpacity>
+                            <Image style={styles.heart} source={require("../icon/like.png")} />
                         </View>
                         <View style={styles.formedujour}>
-                            <Text style={{textAlign:'center'}}>
+                            <Text style={{ textAlign: 'center' }}>
                                 Forme du jour
                             </Text>
                             <View style={styles.viewEmoji}>
-                                <Image style={styles.emoji} source={require("../icon/emoji-5.png")}/>
-                                <Image style={styles.emoji} source={require("../icon/emoji-4.png")}/>
-                                <Image style={styles.emoji} source={require("../icon/emoji-3.png")}/>
-                                <Image style={styles.emoji} source={require("../icon/emoji-2.png")}/>
-                                <Image style={styles.emoji} source={require("../icon/emoji-1.png")}/>
+                                <Image style={styles.emoji} source={require("../icon/emoji-5.png")} />
+                                <Image style={styles.emoji} source={require("../icon/emoji-4.png")} />
+                                <Image style={styles.emoji} source={require("../icon/emoji-3.png")} />
+                                <Image style={styles.emoji} source={require("../icon/emoji-2.png")} />
+                                <Image style={styles.emoji} source={require("../icon/emoji-1.png")} />
                             </View>
                         </View>
                     </View>
                     <View style={styles.bpmView}>
-                                <Day textFontWeight = "bold" textFontColor= "black" ringBgColor="#E0E0E0" textFontSize = {30}
-                                ringColor="#0094ff" percent= {bpm} text={bpmText} radius={100} bgRingWidth={14} viewType = "Electro" />
+                        <Day textFontWeight="bold" textFontColor="black" ringBgColor="#E0E0E0" textFontSize={30}
+                            ringColor="#0094ff" percent={bpm} text={bpmText} radius={100} bgRingWidth={14} viewType="Electro" />
                     </View>
                     <View style={styles.chartView}>
-                        <LineChart 
+                        <LineChart
                             data={chartData}
-                            width={widthScreen * 94/ 100}
+                            width={widthScreen * 94 / 100}
                             height={heightScreen * 23 / 100}
                             chartConfig={chartConfig}
                         />
                     </View>
                 </ScrollView>
-                <View><BottomBar navigation={this.props.navigation}/></View>
+                <View><BottomBar navigation={this.props.navigation} /></View>
             </>
         );
     }
@@ -87,63 +92,63 @@ export default class Electrocardiogramme extends React.Component {
 
 const styles = StyleSheet.create({
     main_container: {
-        width:"100%",
+        width: "100%",
         backgroundColor: "white",
-        height:"100%",
+        height: "100%",
     },
-    entete:{
+    entete: {
         width: widthScreen * 94 / 100,
         height: heightScreen * 4 / 100,
-        flexDirection : 'row',
+        flexDirection: 'row',
     },
-    heart:{
-        resizeMode:'contain',
+    heart: {
+        resizeMode: 'contain',
         height: 35,
         width: 35,
         tintColor: 'grey',
         left: widthScreen * 70 / 100,
     },
-    arrow:{
-        resizeMode:'contain',
+    arrow: {
+        resizeMode: 'contain',
         height: 35,
         width: 35,
         left: widthScreen * 5 / 100,
         tintColor: 'black',
         transform: [{ rotate: '90deg' }],
     },
-    header:{
-        left:  widthScreen * 3 / 100,
-        top:heightScreen * 3 / 100,
+    header: {
+        left: widthScreen * 3 / 100,
+        top: heightScreen * 3 / 100,
         height: heightScreen * 18 / 100,
     },
-    formedujour:{
-        top:heightScreen * 5 / 100,
+    formedujour: {
+        top: heightScreen * 5 / 100,
         width: widthScreen * 94 / 100,
-        alignItems :'center',
+        alignItems: 'center',
     },
-    viewEmoji:{
-        flexDirection:'row',
+    viewEmoji: {
+        flexDirection: 'row',
         justifyContent: 'space-around',
-        height:heightScreen * 5 / 100,
-        width:widthScreen * 55 / 100,
-        top:5,
+        height: heightScreen * 5 / 100,
+        width: widthScreen * 55 / 100,
+        top: 5,
     },
-    emoji:{
-        height:30,
-        width:30,
-        resizeMode:'contain',
-        tintColor:'grey', 
+    emoji: {
+        height: 30,
+        width: 30,
+        resizeMode: 'contain',
+        tintColor: 'grey',
     },
-    bpmView:{
+    bpmView: {
         top: heightScreen * 6 / 100,
         height: heightScreen * 40 / 100,
-        alignItems :'center',
+        alignItems: 'center',
     },
-    chartView:{
-        borderWidth:1,
+    chartView: {
+        borderWidth: 1,
         left: widthScreen * 3 / 100,
         width: widthScreen * 94 / 100,
         height: heightScreen * 28 / 100,
-        alignContent : 'center',
+        alignContent: 'center',
     },
 });

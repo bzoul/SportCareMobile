@@ -62,7 +62,7 @@ export default class TrainingChoice extends React.Component {
                         <TouchableOpacity style={{
                             height: 35, width: 35,
                         }} onPress={() => {
-                            this.props.navigation.navigate('TrainingChoice')
+                            this.props.navigation.navigate('Training')
                         }}>
                             <Image style={styles.arrow} source={require("../icon/down-arrow.png")} />
                         </TouchableOpacity>
