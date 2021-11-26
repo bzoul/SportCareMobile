@@ -36,7 +36,6 @@ export default class Login extends React.Component<State> {
     removeToken = async () => {
         try {
           await AsyncStorage.removeItem('token');
-          await AsyncStorage.removeItem('userId');
           this.setState({ token: null})
         } catch (e) {
             console.log('RmToken  '+e);

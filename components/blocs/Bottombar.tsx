@@ -5,7 +5,7 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
 import {Text, TextInput, View , StyleSheet, Pressable, Image, Alert } from 'react-native';
-import Config from "../../Config.json";
+import Config from "../../config.json";
 var state = "home"
 const BottomBar = ({ navigation }) => (
 
