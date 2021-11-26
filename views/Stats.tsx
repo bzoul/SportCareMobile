@@ -4,7 +4,7 @@
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable prettier/prettier */
 import React from 'react';
-import { ScrollView, View, StyleSheet, TouchableOpacity, Text, Dimensions } from 'react-native'
+import { View, StyleSheet, Text, Dimensions } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import BottomBar from '../components/blocs/Bottombar';
 import TopBarNavigator from '../components/blocs/Topbar';

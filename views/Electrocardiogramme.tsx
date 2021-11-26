@@ -48,10 +48,10 @@ export default class Electrocardiogramme extends React.Component {
     render() {
         return (
             <>
-                <ScrollView style={styles.main_container}>
+                <View style={styles.main_container}>
                     <View style={styles.header}>
                         <View style={styles.entete}>
-                            <TouchableOpacity onPress = {() => {
+                            <TouchableOpacity style={styles.touchableArrow} onPress = {() => {
                                 this.props.navigation.navigate('Dashboard');
                             }}>
                                 <Image style={styles.arrow} source={require("../icon/down-arrow.png")} />
@@ -83,7 +83,7 @@ export default class Electrocardiogramme extends React.Component {
                             chartConfig={chartConfig}
                         />
                     </View>
-                </ScrollView>
+                </View>
                 <View><BottomBar navigation={this.props.navigation} /></View>
             </>
         );
@@ -112,9 +112,13 @@ const styles = StyleSheet.create({
         resizeMode: 'contain',
         height: 35,
         width: 35,
-        left: widthScreen * 5 / 100,
         tintColor: 'black',
         transform: [{ rotate: '90deg' }],
+    },
+    touchableArrow:{
+        height: 35,
+        width: 35,
+        left: widthScreen * 5 / 100,
     },
     header: {
         left: widthScreen * 3 / 100,
