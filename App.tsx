@@ -28,6 +28,10 @@ class App extends React.Component {
           screenOptions={{
             headerShown: false,
           }}>
+            <Stack.Screen
+            name="Login"
+            component={Login}
+          />
           <Stack.Screen
             name="Dashboard"
             component={Dashboard}
@@ -55,10 +59,6 @@ class App extends React.Component {
           <Stack.Screen
             name="Stats"
             component={Stats}
-          />
-          <Stack.Screen
-            name="Login"
-            component={Login}
           />
           <Stack.Screen
             name="Register"
