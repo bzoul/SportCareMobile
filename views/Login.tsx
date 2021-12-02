@@ -32,6 +32,7 @@ export default class Login extends React.Component<State> {
         this.getData()
     }
 
+<<<<<<< HEAD
     // supprime le token stocker sur le telephone
     removeFromApp = async (value:string) => {
         try {
