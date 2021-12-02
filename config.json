@@ -5,7 +5,7 @@
         "primary": "#ff3b30",
         "color": "#2FB105"
     },
-    "baseURL": "ip de ton pc",
+    "baseURL": "http://192.168.43.161:8000",
     "AppIcon": {
         
     }
