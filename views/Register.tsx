@@ -113,20 +113,15 @@ export default class Login extends React.Component<State> {
             coachId: "",
         }
         axios.post(
-            `http://localhost::8000/register`, json)
+            `http://192.168.236.2:8000/register`, json)
             .then((response) => {
                 // handle success
-                if (response.status === 201) {
-                    console.log("trus")
+                if (response.status === 200) {
+                    this.props.navigation.navigate("Login");
                 } else {
                     console.log(response.status);
                 }
             }, (error) => {
-                //     // handle error
-                console.log("  s  ")
-                // console.log(error.request);
-                // console.log(error.message);
-                // console.log(error.config);
                 console.log(error)
             });
     }
@@ -135,8 +130,8 @@ export default class Login extends React.Component<State> {
         const image = { uri: "https://cdn.discordapp.com/attachments/786976841851732038/830091403409358888/dzqdzqdzqd.png" };
         return (
             <KeyboardAvoidingView
-                behavior={Platform.OS == "ios" ? "padding" : "height"}
-                keyboardVerticalOffset={Platform.OS == "ios" ? 0 : 20}
+                behavior={Platform.OS === "ios" ? "padding" : "height"}
+                keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 20}
                 enabled={Platform.OS === "ios" ? true : false}
                 style={styles.main_container}>
                 <View style={styles.main_container}>
@@ -162,13 +157,13 @@ export default class Login extends React.Component<State> {
                         />
                         <View style={styles.button_container}>
                             <Button
-                                title="Return"
+                                title="Retour"
                                 onClick={() => this.props.navigation.navigate('Login')}
                                 color="red"
                                 width="35%"
                             />
                             <Button
-                                title="Valide"
+                                title="Valider"
                                 onClick={() => this.register()}
                                 color="green"
                                 width="35%"

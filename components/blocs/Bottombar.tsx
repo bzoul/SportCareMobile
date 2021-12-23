@@ -6,7 +6,7 @@
 import React from 'react';
 import {Text, TextInput, View , StyleSheet, Pressable, Image, Alert } from 'react-native';
 import Config from "../../config.json";
-var state = "home"
+var state = ""
 const BottomBar = ({ navigation }) => (
 
             <View style={styles.main_container}>

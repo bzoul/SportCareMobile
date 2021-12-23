@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     formeJournaliere: {
-        height: heightScreen * 53 / 100,
+        height: heightScreen * 70 / 100,
         width: widthScreen * 94 / 100,
         borderBottomWidth: 1,
         left: widthScreen * 3 / 100,

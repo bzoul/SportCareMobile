@@ -43,7 +43,7 @@ export default class Profil extends React.Component {
                             Basile Rolland
                         </Text>
                         <Text style={{ fontSize: 20 }}>
-                            Basile.Rolland@sportcare.audd
+                            basile.rolland@sportcare.co
                         </Text>
                     </View>
                     <View style={styles.features_container} >
