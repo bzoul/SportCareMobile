@@ -15,8 +15,8 @@ export default class Profil extends React.Component {
     removeToken = async () => {
         try {
             await AsyncStorage.removeItem('token');
+            await AsyncStorage.removeItem('userid');
             this.props.navigation.navigate("Login");
-            this.setState({ token: null })
         } catch (e) {
             console.log('RmToken  ' + e);
         }

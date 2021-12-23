@@ -1,23 +1,26 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable quotes */
 import React from 'react'
-import {Text, View, StyleSheet } from 'react-native'
+import {Image, View, StyleSheet } from 'react-native'
 
 const Logo = () => {
     return (
         <View style={styles.logo_conainer}>
-            <Text style={styles.titre}>SPORT CARE</Text>
+           <Image style={styles.logo} source={require("./logo_mobile.png")} />
         </View>
     );
 }
 
 const styles = StyleSheet.create ({
     logo_conainer: {
+        top:-60,
         flex:1,
         alignItems:'center',
         justifyContent:'center',
     },
-    titre: {
-        color:'white',
-        fontSize:25
+    logo: {
+        width: 250,
+        resizeMode: 'contain',
     }
 })
 export default Logo;

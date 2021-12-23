@@ -1,3 +1,6 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable no-spaced-func */
+/* eslint-disable semi */
 import React from 'react'
 import {TextInput, View, StyleSheet } from 'react-native'
 
@@ -18,14 +21,14 @@ export default class LogInput extends React.Component {
         <View style={styles.text_input_container}>
             <TextInput
             style={styles.input_text}
-            placeholder=" @ email"
+            placeholder=" Email"
             placeholderTextColor='grey'
             onChangeText={text => this.handleEmail(text)}
             color="black"
             />
             <TextInput
             style={styles.input_text}
-            placeholder=" Password"
+            placeholder=" Mot de passe"
             onChangeText={text => this.handlePassword(text)}
             placeholderTextColor='grey'
             secureTextEntry={true}

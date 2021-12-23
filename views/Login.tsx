@@ -14,6 +14,7 @@ import Logo from "../components/logos/Logo"
 import LogInput from "../components/inputs/LogInput"
 import Config from '../config.json';
 import axios from 'axios';
+
 interface State {
     navigation: any;
     email: string;
@@ -33,10 +34,10 @@ export default class Login extends React.Component<State> {
     }
 
     // sauvegarde le token dans la memoire du telephone
-    storeToken = async (value: string) => {
+    storeToken = async (key : string, value: string) => {
         try {
-            await AsyncStorage.setItem('token', value)
-            //   console.log(this.state.token);
+            await AsyncStorage.setItem(key, value)
+            console.log("On store : ", key, value);
         } catch (e) {
             console.log('storeToken ' + e);
         }
@@ -72,7 +73,6 @@ export default class Login extends React.Component<State> {
     updatePassword = (data: string) => {
         this.setState({ password: data })
         console.log(this.state.password)
-
     }
 
     getData = async () => {
@@ -96,7 +96,7 @@ export default class Login extends React.Component<State> {
         }
     }
 
-    login() {
+    login = async () => {
         var log = this.state.email;
         var pass = this.state.password;
         const json =
@@ -109,12 +109,13 @@ export default class Login extends React.Component<State> {
             .then((response) => {
                 // handle success
                 if (response.status === 200) {
-                    this.storeToken(response.token);
+                    this.storeToken("token", response.data.token);
+                    this.storeToken("userid",response.data._id)
                     this.props.navigation.navigate("Dashboard");
                 } else {
                     
                 }
-            }, (error) => {
+            }, (error) => { 
                 if (error.message.includes("400")){
                     Alert.alert("Email ou password invalide.")
                 }
@@ -123,7 +124,7 @@ export default class Login extends React.Component<State> {
 
     render() {
         this.getAllData()
-        const image = { uri: "https://cdn.discordapp.com/attachments/786976841851732038/830091403409358888/dzqdzqdzqd.png" };
+        const image = { uri: "https://cdn.discordapp.com/attachments/814808646873251850/918430062678781962/istockphoto-491514160-612x612.jpg" };
         return (
             <KeyboardAvoidingView
                 behavior={Platform.OS == "ios" ? "padding" : "height"}
@@ -139,16 +140,16 @@ export default class Login extends React.Component<State> {
                         />
                         <View style={styles.button_container}>
                             <Button
-                                title="Register"
+                                title="S'enregistrer"
                                 onClick={() => this.props.navigation.navigate('Register')}
-                                color="red"
-                                width="35%"
+                                color="grey"
+                                width="40%"
                             />
                             <Button
-                                title="Login"
+                                title="Se connecter"
                                 onClick={() => this.login()}
-                                color="green"
-                                width="35%"
+                                color="#0094ff"
+                                width="40%"
                             />
 
                         </View>

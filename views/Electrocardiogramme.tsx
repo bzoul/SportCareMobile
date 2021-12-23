@@ -47,30 +47,31 @@ const chartConfig = {
 export default class Electrocardiogramme extends React.Component {
     render() {
         return (
-            <>
-                <View style={styles.main_container}>
-                    <View style={styles.header}>
-                        <View style={styles.entete}>
-                            <TouchableOpacity style={styles.touchableArrow} onPress = {() => {
-                                this.props.navigation.navigate('Dashboard');
-                            }}>
-                                <Image style={styles.arrow} source={require("../icon/down-arrow.png")} />
-                            </TouchableOpacity>
-                            <Image style={styles.heart} source={require("../icon/like.png")} />
-                        </View>
-                        <View style={styles.formedujour}>
-                            <Text style={{ textAlign: 'center' }}>
-                                Forme du jour
-                            </Text>
-                            <View style={styles.viewEmoji}>
-                                <Image style={styles.emoji} source={require("../icon/emoji-5.png")} />
-                                <Image style={styles.emoji} source={require("../icon/emoji-4.png")} />
-                                <Image style={styles.emoji} source={require("../icon/emoji-3.png")} />
-                                <Image style={styles.emoji} source={require("../icon/emoji-2.png")} />
-                                <Image style={styles.emoji} source={require("../icon/emoji-1.png")} />
-                            </View>
+            <View style={{ backgroundColor: 'white', height:'100%', width:'100%' }}>
+                <View style={styles.header}>
+                    <View style={styles.entete}>
+                        <TouchableOpacity style={styles.touchableArrow} onPress={() => {
+                            this.props.navigation.navigate('Dashboard');
+                        }}>
+                            <Image style={styles.arrow} source={require("../icon/down-arrow.png")} />
+                        </TouchableOpacity>
+                        <Image style={styles.heart} source={require("../icon/like.png")} />
+                    </View>
+
+                    <View style={styles.formedujour}>
+                        <Text style={{ textAlign: 'center' }}>
+                            Forme du jour
+                        </Text>
+                        <View style={styles.viewEmoji}>
+                            <Image style={styles.emoji} source={require("../icon/emoji-5.png")} />
+                            <Image style={styles.emoji} source={require("../icon/emoji-4.png")} />
+                            <Image style={styles.emoji} source={require("../icon/emoji-3.png")} />
+                            <Image style={styles.emoji} source={require("../icon/emoji-2.png")} />
+                            <Image style={styles.emoji} source={require("../icon/emoji-1.png")} />
                         </View>
                     </View>
+                </View>
+                <ScrollView>
                     <View style={styles.bpmView}>
                         <Day textFontWeight="bold" textFontColor="black" ringBgColor="#E0E0E0" textFontSize={30}
                             ringColor="#0094ff" percent={bpm} text={bpmText} radius={100} bgRingWidth={14} viewType="Electro" />
@@ -83,9 +84,10 @@ export default class Electrocardiogramme extends React.Component {
                             chartConfig={chartConfig}
                         />
                     </View>
-                </View>
-                <View><BottomBar navigation={this.props.navigation} /></View>
-            </>
+                </ScrollView>
+
+                <BottomBar navigation={this.props.navigation} />
+            </View>
         );
     }
 }
@@ -115,7 +117,7 @@ const styles = StyleSheet.create({
         tintColor: 'black',
         transform: [{ rotate: '90deg' }],
     },
-    touchableArrow:{
+    touchableArrow: {
         height: 35,
         width: 35,
         left: widthScreen * 5 / 100,

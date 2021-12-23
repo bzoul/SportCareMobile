@@ -4,9 +4,9 @@
 /* eslint-disable quotes */
 /* eslint-disable prettier/prettier */
 import React from 'react';
-import {Text, TextInput, View , StyleSheet, Pressable, Image, Alert } from 'react-native';
+import {View , StyleSheet, Pressable, Image } from 'react-native';
 import Config from "../../config.json";
-var state = ""
+var state = "home"
 const BottomBar = ({ navigation }) => (
 
             <View style={styles.main_container}>
@@ -89,6 +89,8 @@ const styles = StyleSheet.create ({
         bottom: 0,
         alignItems: "center",
         justifyContent:"center",
+        borderColor:'black',
+        borderWidth:1,
     },
     bar:{
         flexDirection: "row",
