@@ -108,6 +108,7 @@ export default class Login extends React.Component<State> {
             `http://192.168.236.2:8000/login`, json)
             .then((response) => {
                 // handle success
+                console.log(response.status)
                 if (response.status === 200) {
                     this.storeToken("token", response.data.token);
                     this.storeToken("userid",response.data._id)
