@@ -1,11 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
-/* eslint-disable semi */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable react/jsx-no-undef */
-/* eslint-disable quotes */
-/* eslint-disable no-trailing-spaces */
-/* eslint-disable react/self-closing-comp */
-/* eslint-disable prettier/prettier */
 import React from 'react';
 import {
   View,
@@ -13,7 +5,13 @@ import {
   ImageBackground,
   KeyboardAvoidingView,
   Alert,
+  Platform,
 } from 'react-native';
+import {
+  NavigationParams,
+  NavigationScreenProp,
+  NavigationState,
+} from 'react-navigation';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Button from '../components/buttons/LogButton';
 import Logo from '../components/logos/Logo';
@@ -23,15 +21,20 @@ interface State {
   navigation: any;
   email: string;
   password: string;
+  token: string;
+}
+interface Props {
+  navigation: NavigationScreenProp<NavigationState, NavigationParams>;
 }
 
-export default class Login extends React.Component<State> {
+export default class Login extends React.Component<Props, State> {
   constructor(props: State) {
     super(props);
     this.state = {
-      email: null,
-      password: null,
-      token: null,
+      navigation: null,
+      email: '',
+      password: '',
+      token: '',
     };
     this.getData();
   }
@@ -40,33 +43,32 @@ export default class Login extends React.Component<State> {
   storeToken = async (value: string) => {
     try {
       await AsyncStorage.setItem('token', value);
-      //   console.log(this.state.token);
     } catch (e) {
-      console.log('storeToken ' + e);
+      console.error('storeToken ' + e);
     }
   };
 
-  tokenVerif() {
-    const json = JSON.stringify({
-      token: this.state.token,
-    });
-    axios.post(`/webservice/tokenVerif`, json).then(
-      response => {
-        // handle success
-        if (response.data) {
-          // ouvre la page d'autoLogin
-          console.log(response.data);
-          this.props.navigation.navigate('AutoLogin');
-        } else {
-          console.log('token invalid ' + this.state.token);
-        }
-      },
-      error => {
-        // handle error
-        console.log('log11 ' + error);
-      },
-    );
-  }
+  // tokenVerif() {
+  //   const json = JSON.stringify({
+  //     token: this.state.token,
+  //   });
+  //   axios.post(`/webservice/tokenVerif`, json).then(
+  //     response => {
+  //       // handle success
+  //       if (response.data) {
+  //         // ouvre la page d'autoLogin
+  //         console.log(response.data);
+  //         this.props.navigation.navigate('AutoLogin');
+  //       } else {
+  //         console.log('token invalid ' + this.state.token);
+  //       }
+  //     },
+  //     error => {
+  //       // handle error
+  //       console.log('log11 ' + error);
+  //     },
+  //   );
+  // }
 
   updateEmail = (data: string) => {
     this.setState({email: data});
@@ -91,13 +93,13 @@ export default class Login extends React.Component<State> {
     }
   };
 
-  getAllData() {
-    if (this.state.token !== null) {
-      this.tokenVerif();
-    } else {
-      console.log('nop');
-    }
-  }
+  // getAllData() {
+  //   if (this.state.token !== null) {
+  //     this.tokenVerif();
+  //   } else {
+  //     console.log('nop');
+  //   }
+  // }
 
   login() {
     var log = this.state.email;
@@ -106,11 +108,12 @@ export default class Login extends React.Component<State> {
       email: log,
       password: pass,
     };
-    axios.post(`/login`, json).then(
+    axios.post('/login', json).then(
       response => {
         // handle success
         if (response.status === 200) {
-          this.storeToken(response.token);
+          axios.defaults.headers.common.Authorization = `Bearer ${response.data.token}`;
+          this.storeToken(response.data.token);
           this.props.navigation.navigate('Dashboard');
         } else {
         }
@@ -124,14 +127,14 @@ export default class Login extends React.Component<State> {
   }
 
   render() {
-    this.getAllData();
+    //this.getAllData();
     const image = {
       uri: 'https://cdn.discordapp.com/attachments/786976841851732038/830091403409358888/dzqdzqdzqd.png',
     };
     return (
       <KeyboardAvoidingView
-        behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
-        keyboardVerticalOffset={Platform.OS == 'ios' ? 0 : 20}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 20}
         enabled={Platform.OS === 'ios' ? true : false}
         style={styles.main_container}>
         <View style={styles.main_container}>
