@@ -4,23 +4,63 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react'
-import { Text, TouchableOpacity, View, StyleSheet, Image, Dimensions, AsyncStorage } from 'react-native'
+import axios from 'axios';
+import { Text, TouchableOpacity, View, StyleSheet, Image, Dimensions } from 'react-native'
 import BottomBar from '../components/blocs/Bottombar';
+import Config from '../config.json';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
 
 const widthScreen = Dimensions.get('window').width;
 const heightScreen = Dimensions.get('window').height;
 
 export default class Profil extends React.Component {
-    // supprime le token stocker sur le telephone
-    removeToken = async () => {
-        try {
-            await AsyncStorage.removeItem('token');
-            this.props.navigation.navigate("Login");
-            this.setState({ token: null })
-        } catch (e) {
-            console.log('RmToken  ' + e);
+    constructor(props) {
+        super(props);
+        this.state = {
+            id: null,
+            lastName: null,
+            firstName: null,
+            email: null,
         }
+        // this.state.refreshing;
+        this.getToken();
+        
     }
+
+    getToken = async () =>{
+        const valueToken = await AsyncStorage.getItem('token');
+        const valueId = await AsyncStorage.getItem('id');
+        // axios.defaults.headers.post['jwt'] = valueToken;
+        this.setState({id: valueId})
+        // console.log(valueToken)
+        this.getUser();
+    }
+
+    getUser() {
+        axios.get(
+            `${Config.baseURL}/users/${this.state.id}`)
+            .then((response) => {
+                // console.log(response.data)
+                // handle success
+                if (response.status === 200) {
+                    console.log(response.data)
+                    this.setState({
+                        email: response.data.email,
+                        lastName: response.data.lastName,
+                        firstName: response.data.firstName,
+                    })
+                    // console.log('object '+this.state.user.birthdate);
+                    // console.log(this.state.user);
+                }
+
+            }, (error) => {
+                console.log(error.response);
+                console.log('error')
+            });
+    }
+
     render() {
         return (
             <View>
@@ -40,10 +80,10 @@ export default class Profil extends React.Component {
                     <View style={styles.photo_container}>
                         <Image style={styles.photo} source={require("../icon/téléchargement.jpeg")} />
                         <Text style={{ fontSize: 25 }}>
-                            Basile Rolland
+                            {this.state.lastName} {this.state.firstName}
                         </Text>
                         <Text style={{ fontSize: 20 }}>
-                            Basile.Rolland@sportcare.audd
+                            {this.state.email}
                         </Text>
                     </View>
                     <View style={styles.features_container} >

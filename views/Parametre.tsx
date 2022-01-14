@@ -6,10 +6,14 @@
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable react/self-closing-comp */
 /* eslint-disable prettier/prettier */
+import { format, compareAsc } from 'date-fns'
 import { voidTypeAnnotation } from '@babel/types';
 import React from 'react';
 import { Text, TextInput, View, StyleSheet, Dimensions, Image, TouchableOpacity } from 'react-native';
 import BottomBar from '../components/blocs/Bottombar';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Config from '../config.json';
 
 const widthScreen = Dimensions.get('window').width;
 const heightScreen = Dimensions.get('window').height;
@@ -18,10 +22,88 @@ export default class Parametre extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            id: null,
+            civility: null,
+            lastName: '',
+            firstName: null,
+            birthdate: null,
         }
+        this.handleChange= this.handleChange.bind(this);
+        this.getToken();
     }
 
+    handleChange(value:string,name:string) {
+        this.setState({[name]: value});
+        console.log('poutt '+this.state.lastName)
+      }
+
+    getToken = async () =>{
+        const valueToken = await AsyncStorage.getItem('token');
+        const valueId = await AsyncStorage.getItem('id');
+        // axios.defaults.headers.post['jwt'] = valueToken;
+        this.setState({id: valueId})
+        // console.log(valueToken)
+        this.getUser();
+
+    }
+
+    getUser() {
+        axios.get(
+            `${Config.baseURL}/users/${this.state.id}`)
+            .then((response) => {
+                // console.log(response.data)
+                // handle success
+                if (response.status === 200) {
+                    console.log(response.data)
+                    this.setState({
+                        civility: response.data.civility,
+                        lastName: response.data.lastName,
+                        firstName: response.data.firstName,
+                        birthdate: response.data.birthdate,
+                    })
+                    // console.log('object '+this.state.user.birthdate);
+                    // console.log(this.state.user);
+                }
+
+            }, (error) => {
+                console.log(error.response);
+                console.log('error')
+            });
+    }
+
+    modifyUser(){
+        const json = {
+            "lastName": this.state.lastName,
+            "firstName": this.state.firstName
+        
+        }
+        console.log(json)
+        axios.patch(
+            `${Config.baseURL}/users/616933506854303087c2ca12`,json)
+            .then((response) => {
+                console.log(response.status)
+                console.log('youpi')
+                // handle success
+            }, (error) => {
+                if (error.message.includes("400")){
+                    Alert.alert("Email ou password invalide.")
+                }
+                console.log(error.response);
+                console.log('error')
+                // return Promise.reject(error);
+            });
+    }
+
+
+
     render() {
+        var civ='Humain';
+        console.log(this.state.birthdate)
+        var pouet=new Date(this.state.birthdate);
+        civ = this.state.civility === 1 ? 'Homme' : 'Femme';
+        pouet=format(pouet,'dd MMMM yyyy');
+    
+        console.log(civ);
         return (
             <View style={styles.main_container}>
                 <View style={styles.header}>
@@ -49,8 +131,9 @@ export default class Parametre extends React.Component {
                                 Nom
                             </Text>
                             <TextInput style={styles.input}
-                                placeholder="Nom actuel"
-                                keyboardType="default"
+                                // name="lastName"
+                                onChangeText={text => this.handleChange(text,"lastName")}
+                                value= {this.state.lastName}
                             />
                         </View>
                         <View style={{ flexDirection: 'column' }}>
@@ -58,8 +141,10 @@ export default class Parametre extends React.Component {
                                 Prenom
                             </Text>
                             <TextInput style={styles.input}
-                                placeholder="Prenom actuel "
+                                onChangeText={text => this.handleChange(text,"firstName")}
+                                value= {this.state.firstName}
                                 keyboardType="default"
+                                placeholderTextColor="#000" 
                             />
                         </View>
 
@@ -70,8 +155,11 @@ export default class Parametre extends React.Component {
                                 Date de naissance
                             </Text>
                             <TextInput style={styles.input}
-                                placeholder="DDN actuelle"
+                                // placeholder={pouet}
+                                onChangeText={text => this.handleChange(text,"birthdate")}
+                                value= {pouet}
                                 keyboardType="default"
+                                placeholderTextColor="#000" 
                             />
                         </View>
                         <View style={{ flexDirection: 'column' }}>
@@ -79,13 +167,14 @@ export default class Parametre extends React.Component {
                                 Civilité
                             </Text>
                             <TextInput style={styles.input}
-                                placeholder="Civilité acutel"
+                                placeholder= {civ}
                                 keyboardType="default"
+                                placeholderTextColor="#000" 
                             />
                         </View>
                     </View>
                     <TouchableOpacity style={[styles.buttonConfirm, { marginTop: -5 }]}
-                        onPress={() => {}}
+                        onPress={() => {this.modifyUser()}}
                     >
                         <Text>
                             CONFIRMER
@@ -156,7 +245,7 @@ export default class Parametre extends React.Component {
                         </Text>
                     </TouchableOpacity>
                 </View>
-                <BottomBar navigation={this.props.navigation} />
+                {/* <BottomBar navigation={this.props.navigation} /> */}
             </View>
         );
     }
@@ -219,6 +308,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         width: widthScreen * 40 / 100,
         height: 35,
+        color: 'black',
     },
     mdp: {
         marginTop: 20,

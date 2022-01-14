@@ -32,7 +32,6 @@ export default class Login extends React.Component<State> {
         this.getData()
     }
 
-<<<<<<< HEAD
     // supprime le token stocker sur le telephone
     removeFromApp = async (value:string) => {
         try {
@@ -85,6 +84,7 @@ export default class Login extends React.Component<State> {
 
     getAllData() {
         if (this.state.email !== null && this.state.password !== null) {
+            console.log('get all')
             this.login();
         } else {
             console.log('nop')
@@ -99,6 +99,7 @@ export default class Login extends React.Component<State> {
             email: log,
             password: pass,
         }
+        console.log('in')
         axios.post(
             `${Config.baseURL}/login`, json)
             .then((response) => {
@@ -108,6 +109,8 @@ export default class Login extends React.Component<State> {
                     this.storeInApp('email',this.state.email)
                     this.storeInApp('pass',this.state.password)
                     this.storeInApp('token',response.data.token)
+                    this.storeInApp('id',response.data._id)
+                    console.log(response.data._id)
                     this.props.navigation.navigate("Dashboard");
                 }
             }, (error) => {

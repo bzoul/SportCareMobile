@@ -10,6 +10,10 @@ import { Text, ScrollView, View, StyleSheet, Image, Dimensions } from 'react-nat
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import BottomBar from '../components/blocs/Bottombar';
 import Day from '../components/blocs/progressCircle';
+import Config from '../config.json';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+
 
 const widthScreen = Dimensions.get('window').width;
 const heightScreen = Dimensions.get('window').height;
@@ -21,6 +25,81 @@ var height = 181;
 var colorReadiness = '#00a8f3';
 
 export default class Dashboard extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            id: null,
+            lastName: null,
+            firstName: null,
+            email: null,
+            size: null,
+            weight: null,
+            imc: null,
+            rmssd: null,
+            mhr: null
+        }
+        // this.state.refreshing;
+        this.getToken();
+    }
+
+    getToken = async () =>{
+        const valueToken = await AsyncStorage.getItem('token');
+        const valueId = await AsyncStorage.getItem('id');
+        // axios.defaults.headers.post['jwt'] = valueToken;
+        this.setState({id: valueId})
+        // console.log(valueToken)
+        this.getUser();
+        this.getLastReport();
+    }
+
+    getUser() {
+        axios.get(
+            `${Config.baseURL}/users/${this.state.id}`)
+            .then((response) => {
+                // console.log(response.data)
+                // handle success
+                if (response.status === 200) {
+                    console.log(response.data)
+                    this.setState({
+                        email: response.data.email,
+                        lastName: response.data.lastName,
+                        firstName: response.data.firstName,
+                    })
+                    // console.log('object '+this.state.user.birthdate);
+                    // console.log(this.state.user);
+                }
+
+            }, (error) => {
+                console.log(error.response);
+                console.log('error')
+            });
+    }
+
+    getLastReport() {
+        axios.get(
+            `${Config.baseURL}/dailyReports/last/${this.state.id}`)
+            .then((response) => {
+                // console.log(response.data)
+                // handle success
+                if (response.status === 200) {
+                    console.log(response.data)
+                    this.setState({
+                        size: response.data.size,
+                        weight: response.data.weight,
+                        imc: response.data.bmi,
+                        rmssd: response.data.rmssd,
+                        mhr: response.data.mhr
+                    })
+                    // console.log('object '+this.state.user.birthdate);
+                    // console.log(this.state.user);
+                }
+
+            }, (error) => {
+                console.log(error.response);
+                console.log('error')
+            });
+    }
+
     render() {
         return (
             <>
@@ -28,14 +107,14 @@ export default class Dashboard extends React.Component {
                     <View style={styles.header}>
                         <View>
                             <Image style={styles.logo_image} source={require("../components/logos/logo_mobile.png")} />
-                            <Text style={styles.textWelcom}>Bonjour Marceau,</Text>
+                            <Text style={styles.textWelcom}>Bonjour {this.state.lastName},</Text>
                             <Text style={styles.textNotif}>Vous avez un message de votre coach.</Text>
                         </View>
                         <View style={styles.bpm}>
                             <Image style={styles.like_logo} source={require("../icon/like.png")} />
-                            <Text>63 BPM</Text>
+                            <Text>{this.state.mhr} BPM</Text>
                         </View>
-                        <TouchableOpacity style={[styles.formeView, { right: widthScreen * 7 / 100 }]}
+                        <TouchableOpacity style={[styles.formeView, { right: widthScreen * 20 / 100 }]}
                             onPress={() => {
                                 this.props.navigation.navigate('Electrocardiogramme');
                             }}>
@@ -69,7 +148,7 @@ export default class Dashboard extends React.Component {
                                 <Text style={styles.textFormeToday}>High</Text>
                             </View>
                             <Day textFontWeight="bold" textFontColor="grey" ringBgColor="#E0E0E0" textFontSize={30}
-                                ringColor={colorReadiness} percent={readiness} text={readinessTxt} radius={100} bgRingWidth={14} viewType="bigone" />
+                                ringColor={colorReadiness} percent={this.state.rmssd} text={`${this.state.rmssd}%`} radius={100} bgRingWidth={14} viewType="bigone" />
                         </View>
                     </View>
 
@@ -77,17 +156,17 @@ export default class Dashboard extends React.Component {
                         <Text style={styles.textIMC}>Indice de masse corporelle</Text>
                         <View style={{ flexDirection: 'row', width: widthScreen * 94 / 100, justifyContent: 'space-around' }}>
                             <View style={styles.mensuration}>
-                                <Text style={{ textAlign: 'center', color: 'black', fontWeight: 'bold' }}>Taille : {"\n"}{height}cm</Text>
+                                <Text style={{ textAlign: 'center', color: 'black', fontWeight: 'bold' }}>Taille : {"\n"}{this.state.size}cm</Text>
                             </View>
                             <View style={styles.mensuration}>
-                                <Text style={{ textAlign: 'center', color: 'black', fontWeight: 'bold' }}>Poids : {"\n"}{weight}kg</Text>
+                                <Text style={{ textAlign: 'center', color: 'black', fontWeight: 'bold' }}>Poids : {"\n"}{this.state.weight}kg</Text>
                             </View>
                         </View>
                         <View style={{ flexDirection: 'row', width: widthScreen * 94 / 100, justifyContent: 'space-around', top: -15 }}>
                             <View style={styles.IMC}>
                                 {/*IMC < 18.5? colorIMC = 'orange':IMC < 25 ? colorIMC = 'green' : IMC < 30 ? colorIMC = 'blue': IMC< 35 ? colorIMC = 'orange' : IMC < 40 ? colorIMC ='red': IMC >= 40 ? colorIMC = 'black': colorIMC = 'white'*/}
                                 <Text style={{ textAlign: 'center', color: 'green', fontWeight: 'bold' }}>
-                                    IMC {"\n"}{(weight / ((height / 100) * (height / 100))).toFixed(1)}
+                                    IMC {"\n"}{this.state.imc}
                                 </Text>
                             </View>
                         </View>

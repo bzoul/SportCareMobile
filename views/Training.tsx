@@ -72,12 +72,6 @@ export default class Training extends React.Component {
                             <Text>
                                 Grosse séance wola, que de la transpi du bibi et la veine je l'ai vu en sah.
                             </Text>
-                            <Text style={{ fontSize: 16, fontWeight: 'bold' }}>
-                                Le mot du coach :
-                            </Text>
-                            <Text>
-                                G vu tu t'es donné mon salaud. Par contre reclaque moi lcul pendant la séance jte jure t mort.
-                            </Text>
                         </View>
                     </ScrollView>
                 </View>

@@ -9,8 +9,9 @@ import Stats from './views/Stats';
 import Electrocardiogramme from './views/Electrocardiogramme';
 import Training from './views/Training';
 import TrainingChoice from './views/TrainingChoice';
-
-import Sensor from './views/Sensor';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Config from './config.json';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -28,7 +29,7 @@ class App extends React.Component {
           screenOptions={{
             headerShown: false,
           }}>
-            <Stack.Screen
+          <Stack.Screen
             name="Login"
             component={Login}
           />
